@@ -148,8 +148,9 @@ Python 3.12 in the deployment settings. The root `.streamlit/config.toml` is in
 the location Community Cloud expects and limits individual uploads to 10 MB.
 
 Set the approved website return URL as `DEMO_CASE_STUDY_URL` in the hosted
-environment after a portfolio staging URL exists. A private repository, staging
-deployment, and final public URL still require separate approval.
+environment after a portfolio staging URL exists. The repository is currently
+private and has not been deployed. Staging deployment and the final public URL
+remain subject to separate approval.
 
 ## License
 
