@@ -136,9 +136,9 @@ This version has no ERP integration, persistent storage, real-time data, deep
 learning, purchase-order submission, or mathematical inventory optimizer. It
 contains no client data or client code.
 
-The Demo has no public deployment yet. Streamlit Community Cloud is the proposed
-host, subject to separate staging and publication approval. The code is licensed
-separately under the MIT License below.
+The Demo is publicly available on Streamlit Community Cloud at
+`https://xiaoyue-demand-forecasting.streamlit.app/`, while the GitHub repository
+remains private. The code is licensed separately under the MIT License below.
 
 ## Streamlit Community Cloud staging configuration
 
@@ -147,10 +147,14 @@ The root `requirements.txt` installs this package and its dependencies from
 Python 3.12 in the deployment settings. The root `.streamlit/config.toml` is in
 the location Community Cloud expects and limits individual uploads to 10 MB.
 
-Set the approved website return URL as `DEMO_CASE_STUDY_URL` in the hosted
-environment after a portfolio staging URL exists. The repository is currently
-private and has not been deployed. Staging deployment and the final public URL
-remain subject to separate approval.
+The hosted app uses the root-level Streamlit secret below as an environment
+variable while preserving the local fallback for development:
+
+```toml
+DEMO_CASE_STUDY_URL = "https://xiaoyue-portfolio.pages.dev/demand-forecasting.html"
+```
+
+The repository remains private even though the running Demo is public.
 
 ## License
 
