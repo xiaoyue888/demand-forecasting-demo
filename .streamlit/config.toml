@@ -1,0 +1,18 @@
+[client]
+toolbarMode = "minimal"
+
+[server]
+maxUploadSize = 10
+
+[theme]
+base = "light"
+primaryColor = "#4b9ee8"
+backgroundColor = "#fafaf7"
+secondaryBackgroundColor = "#f1f5f8"
+textColor = "#20252a"
+font = "Inter"
+headingFont = "Jost"
+codeFont = "JetBrains Mono"
+baseFontSize = 16
+baseRadius = "none"
+buttonRadius = "none"

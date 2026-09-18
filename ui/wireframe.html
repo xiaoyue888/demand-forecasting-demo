@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demand Forecasting Demo — Checkpoint D Wireframe</title>
+    <link rel="stylesheet" href="wireframe.css" />
+  </head>
+  <body>
+    <div class="wireframe-label">Checkpoint D · Low-fidelity wireframe · Not final UI</div>
+
+    <header class="page-header shell">
+      <div>
+        <p class="eyebrow">AI &amp; Machine Learning / Supply Chain</p>
+        <h1>Demand Forecasting &amp;<br />Inventory Decision Support</h1>
+        <p class="lede">
+          Compare demand forecasts, understand uncertainty, and identify which SKUs
+          may need replenishment attention.
+        </p>
+      </div>
+      <div class="header-note">
+        <strong>Scenario analysis</strong>
+        <span>Recommendations are planning estimates, not guaranteed outcomes.</span>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="control-deck" aria-labelledby="setup-title">
+        <div class="section-heading">
+          <span class="step">01</span>
+          <div>
+            <h2 id="setup-title">Dataset &amp; assumptions</h2>
+            <p>Start with the built-in example or validate a local CSV.</p>
+          </div>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-group">
+            <span class="control-label">Dataset</span>
+            <div class="segmented" aria-label="Dataset source">
+              <button class="active" type="button">Built-in scenario</button>
+              <button type="button">Upload CSV</button>
+            </div>
+            <button class="file-box" type="button">
+              <span>Drop weekly demand CSV here</span>
+              <small>or browse files · processed in memory only</small>
+            </button>
+            <a href="#data-contract">View required CSV fields</a>
+          </div>
+
+          <div class="control-group what-if">
+            <span class="control-label">What-if assumptions</span>
+            <label>
+              <span>Supplier lead time</span>
+              <span class="input-mock">4 weeks⌄</span>
+            </label>
+            <label>
+              <span>Target service level</span>
+              <span class="input-mock">95%⌄</span>
+            </label>
+            <label>
+              <span>Annual demand growth</span>
+              <span class="input-mock">+0%⌄</span>
+            </label>
+            <button class="primary" type="button">Run scenario</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="attention" aria-labelledby="attention-title">
+        <div>
+          <p class="eyebrow">Portfolio overview</p>
+          <h2 id="attention-title">3 of 12 SKUs need attention</h2>
+        </div>
+        <div class="risk-counts">
+          <button class="risk high" type="button"><strong>1</strong><span>High risk</span></button>
+          <button class="risk watch" type="button"><strong>2</strong><span>Watch</span></button>
+          <button class="risk low" type="button"><strong>9</strong><span>Low risk</span></button>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="SKU analysis workspace">
+        <aside class="sku-panel">
+          <div class="panel-heading">
+            <h2>SKUs</h2>
+            <span>12 total</span>
+          </div>
+          <label class="search">
+            <span class="sr-only">Search SKUs</span>
+            <input type="search" placeholder="Search SKU" />
+          </label>
+          <div class="sku-list">
+            <button class="sku active" type="button">
+              <span><strong>SKU_08</strong><small>Intermittent</small></span>
+              <span class="status high">High</span>
+            </button>
+            <button class="sku" type="button">
+              <span><strong>SKU_05</strong><small>Trend + seasonal</small></span>
+              <span class="status watch">Watch</span>
+            </button>
+            <button class="sku" type="button">
+              <span><strong>SKU_10</strong><small>Volatile</small></span>
+              <span class="status watch">Watch</span>
+            </button>
+            <button class="sku" type="button">
+              <span><strong>SKU_01</strong><small>Stable seasonal</small></span>
+              <span class="status low">Low</span>
+            </button>
+            <button class="sku quiet" type="button">Show 8 more</button>
+          </div>
+        </aside>
+
+        <div class="analysis">
+          <div class="selection-bar">
+            <div>
+              <p class="eyebrow">Selected SKU</p>
+              <h2>SKU_08</h2>
+            </div>
+            <dl>
+              <div><dt>Pattern</dt><dd>Intermittent</dd></div>
+              <div><dt>Selected model</dt><dd>Global HGB</dd></div>
+              <div><dt>Forecast horizon</dt><dd>8 weeks</dd></div>
+            </dl>
+          </div>
+
+          <section class="chart-card" aria-labelledby="demand-chart-title">
+            <div class="panel-heading">
+              <div>
+                <h3 id="demand-chart-title">Historical demand &amp; forecast</h3>
+                <p>Weekly units · empirical intervals based on rolling backtests</p>
+              </div>
+              <div class="legend">
+                <span><i class="actual"></i>Actual</span>
+                <span><i class="forecast"></i>Forecast</span>
+                <span><i class="interval"></i>80–95% range</span>
+              </div>
+            </div>
+            <div class="chart-placeholder" role="img" aria-label="Placeholder demand forecast chart">
+              <div class="y-labels"><span>60</span><span>40</span><span>20</span><span>0</span></div>
+              <div class="plot">
+                <div class="forecast-zone">Forecast</div>
+                <svg viewBox="0 0 720 210" preserveAspectRatio="none" aria-hidden="true">
+                  <polygon class="band-95" points="530,84 570,70 610,79 650,63 700,73 700,169 650,151 610,158 570,146 530,155" />
+                  <polygon class="band-80" points="530,103 570,89 610,98 650,82 700,91 700,148 650,132 610,139 570,127 530,136" />
+                  <polyline class="history-line" points="0,152 42,145 82,161 124,90 166,151 208,134 250,157 292,76 334,147 376,131 418,155 460,98 500,142 530,121" />
+                  <polyline class="forecast-line" points="530,121 570,108 610,117 650,100 700,111" />
+                </svg>
+                <div class="x-labels"><span>Past 24 weeks</span><span>Today</span><span>Next 8 weeks</span></div>
+              </div>
+            </div>
+            <p class="chart-note">
+              <strong>Interpretation placeholder:</strong> demand is intermittent and the uncertainty
+              band is wide; inventory decisions should not rely on the point forecast alone.
+            </p>
+          </section>
+
+          <div class="decision-grid">
+            <section class="decision-card danger" aria-labelledby="risk-title">
+              <p class="eyebrow">Inventory risk</p>
+              <h3 id="risk-title">High stockout risk</h3>
+              <dl class="metrics">
+                <div><dt>On hand</dt><dd>35 units</dd></div>
+                <div><dt>Lead-time demand</dt><dd>41 units</dd></div>
+                <div><dt>Safety stock</dt><dd>12 units</dd></div>
+                <div><dt>Stock coverage</dt><dd>2.6 weeks</dd></div>
+              </dl>
+              <p>Expected demand may exceed inventory before the four-week supply lead time ends.</p>
+            </section>
+
+            <section class="decision-card recommendation" aria-labelledby="recommendation-title">
+              <p class="eyebrow">Recommended action</p>
+              <h3 id="recommendation-title">Reorder now</h3>
+              <div class="quantity"><strong>31</strong><span>suggested units</span></div>
+              <dl class="compact-list">
+                <div><dt>Reorder point</dt><dd>53 units</dd></div>
+                <div><dt>Order-up-to level</dt><dd>66 units</dd></div>
+                <div><dt>Expected depletion</dt><dd>Week of 21 Oct</dd></div>
+              </dl>
+              <button class="text-button" type="button">How this was calculated ↓</button>
+            </section>
+          </div>
+
+          <section class="comparison" aria-labelledby="comparison-title">
+            <div class="panel-heading">
+              <div>
+                <h3 id="comparison-title">Backtest comparison</h3>
+                <p>Three rolling-origin validation windows; final test remains isolated.</p>
+              </div>
+              <button class="text-button" type="button">Metric guide</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Model</th><th>MAE ↓</th><th>WAPE ↓</th><th>MASE ↓</th><th>Bias</th><th>Selection</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Seasonal Naive</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Baseline</td></tr>
+                  <tr><td>ETS</td><td>—</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+                  <tr class="selected"><td>Global HGB</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Selected</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="chart-note">Values intentionally omitted from the wireframe; no performance claim is approved.</p>
+          </section>
+
+          <section class="assumptions" aria-labelledby="assumptions-title">
+            <h3 id="assumptions-title">Decision assumptions</h3>
+            <div class="assumption-grid">
+              <p><strong>Weekly review</strong><br />Inventory is reviewed once per week.</p>
+              <p><strong>No open POs</strong><br />Only current on-hand inventory is included.</p>
+              <p><strong>Empirical safety stock</strong><br />Based on cumulative validation under-forecast errors.</p>
+              <p><strong>No optimizer</strong><br />No holding-cost, shelf-life, or purchase-order optimization.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="states" aria-labelledby="states-title">
+        <div class="section-heading">
+          <span class="step">02</span>
+          <div>
+            <h2 id="states-title">Required system states</h2>
+            <p>Placement and wording sketches for implementation review.</p>
+          </div>
+        </div>
+        <div class="state-grid">
+          <article class="state-card loading">
+            <span class="state-label">Validating / running</span>
+            <div class="skeleton wide"></div><div class="skeleton"></div>
+            <p>Validating 12 SKUs and running chronological backtests…</p>
+          </article>
+          <article class="state-card empty">
+            <span class="state-label">Empty</span>
+            <div class="state-icon">＋</div>
+            <h3>No dataset selected</h3>
+            <p>Use the built-in scenario or upload a weekly CSV to begin.</p>
+          </article>
+          <article class="state-card error">
+            <span class="state-label">Validation error</span>
+            <h3>2 issues need attention</h3>
+            <ul>
+              <li><strong>SKU_B:</strong> missing week beginning 2025-03-03.</li>
+              <li><strong>Row 48:</strong> demand must be a non-negative integer.</li>
+            </ul>
+            <button class="text-button" type="button">View CSV requirements</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="data-contract" id="data-contract">
+        <div>
+          <p class="eyebrow">CSV contract</p>
+          <h2>Five required fields</h2>
+        </div>
+        <code>date · sku_id · demand · current_on_hand · lead_time_weeks</code>
+        <p>Weekly Monday dates · 80–260 observations per SKU · maximum 100 SKUs</p>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <span>Wireframe for structure and hierarchy review only.</span>
+      <span>No final colors, typography, chart styling, or interaction behavior approved.</span>
+    </footer>
+  </body>
+</html>
