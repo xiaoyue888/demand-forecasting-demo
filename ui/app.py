@@ -86,7 +86,7 @@ st.markdown(
     f"""
     <nav class="portfolio-nav">
       <span class="portfolio-mark">XZ</span>
-      <a href="{case_study_link}" target="_top">← Back to case study</a>
+      <a href="{case_study_link}" target="_blank" rel="noopener noreferrer">← Back to case study</a>
     </nav>
     <header class="app-header">
       <div>
