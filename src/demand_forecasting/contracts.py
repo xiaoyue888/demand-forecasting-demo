@@ -7,7 +7,6 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
-
 REQUIRED_COLUMNS = (
     "date",
     "sku_id",

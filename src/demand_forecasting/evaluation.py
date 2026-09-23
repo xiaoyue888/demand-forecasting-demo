@@ -7,7 +7,6 @@ import pandas as pd
 
 from .models import model_factories
 
-
 MODEL_ORDER = {"seasonal_naive": 0, "ets": 1, "global_hgb": 2}
 
 

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
+
 import numpy as np
 import pandas as pd
 
@@ -21,10 +23,10 @@ def generate_synthetic_data(
     rng = np.random.default_rng(seed)
     if end_date is None:
         today = pd.Timestamp.today().normalize()
-        end = today - pd.Timedelta(days=today.weekday() + 7)
+        end = today - timedelta(days=today.weekday() + 7)
     else:
         end = pd.Timestamp(end_date).normalize()
-        end -= pd.Timedelta(days=end.weekday())
+        end -= timedelta(days=end.weekday())
     dates = pd.date_range(end=end, periods=periods, freq="W-MON")
     records: list[dict[str, object]] = []
 

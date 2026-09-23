@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -37,7 +39,7 @@ def _validation(fold_errors: list[list[float]]) -> pd.DataFrame:
             forecast = 10.0
             rows.append(
                 {
-                    "date": pd.Timestamp("2024-01-01") + pd.Timedelta(weeks=step),
+                    "date": pd.Timestamp("2024-01-01") + timedelta(weeks=step),
                     "sku_id": "SKU_A",
                     "horizon_step": step,
                     "forecast": forecast,

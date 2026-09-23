@@ -1,7 +1,13 @@
+from datetime import timedelta
+
 import numpy as np
 import pandas as pd
 
-from demand_forecasting import build_inventory_decisions, generate_synthetic_data, run_forecasting_core
+from demand_forecasting import (
+    build_inventory_decisions,
+    generate_synthetic_data,
+    run_forecasting_core,
+)
 from demand_forecasting.evaluation import rolling_origin_predictions
 from demand_forecasting.models import GlobalHGBForecaster, SeasonalNaiveForecaster
 
@@ -16,7 +22,7 @@ def test_seasonal_naive_uses_only_prior_year_values() -> None:
 
 def test_global_features_do_not_use_current_target() -> None:
     data = generate_synthetic_data().query("sku_id in ['SKU_01', 'SKU_02']").copy()
-    cutoff = data["date"].max() - pd.Timedelta(weeks=8)
+    cutoff = data["date"].max() - timedelta(weeks=8)
     train = data[data["date"] <= cutoff]
     model_a = GlobalHGBForecaster().fit(train)
     prediction_a = model_a.predict(2)

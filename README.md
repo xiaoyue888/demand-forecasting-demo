@@ -1,9 +1,19 @@
 # Demand Forecasting & Inventory Decision Support
 
+[Live Demo](https://xiaoyue-demand-forecasting.streamlit.app/) ·
+[Portfolio Case Study](https://xiaoyue-portfolio.pages.dev/demand-forecasting.html)
+
 A local, reproducible multi-SKU forecasting and inventory decision-support Demo.
 It uses synthetic data by default and shows how forecasts become transparent
 stock-risk and replenishment signals. It is a portfolio demonstration, not a
 production planning system or inventory optimizer.
+
+## Project status
+
+- Python 3.12 or newer.
+- Automated tests cover validation, forecasting, inventory decisions, and web-link safety.
+- CI installs the package and runs tests plus Ruff on Python 3.12 and 3.13.
+- MIT licensed; synthetic data only.
 
 ## Verified example
 
@@ -110,7 +120,6 @@ constraints, and service penalties are not modeled.
 src/demand_forecasting/  validation, synthetic data, models, evaluation, inventory
 ui/app.py                local Streamlit application
 ui/app.css               portfolio-aligned presentation layer
-ui/wireframe.*           approved Checkpoint D review artifact
 tests/                   leakage, reproducibility, validation, and formula tests
 docs/                    experiment record and website integration contract
 ```
@@ -137,10 +146,11 @@ learning, purchase-order submission, or mathematical inventory optimizer. It
 contains no client data or client code.
 
 The Demo is publicly available on Streamlit Community Cloud at
-`https://xiaoyue-demand-forecasting.streamlit.app/`, while the GitHub repository
-remains private. The code is licensed separately under the MIT License below.
+`https://xiaoyue-demand-forecasting.streamlit.app/`. This repository contains
+only synthetic scenarios and newly written portfolio code; it contains no client
+data or client implementation.
 
-## Streamlit Community Cloud staging configuration
+## Streamlit Community Cloud deployment
 
 The root `requirements.txt` installs this package and its dependencies from
 `pyproject.toml`. Use `ui/app.py` as the Community Cloud entrypoint and select
@@ -154,7 +164,8 @@ variable while preserving the local fallback for development:
 DEMO_CASE_STUDY_URL = "https://xiaoyue-portfolio.pages.dev/demand-forecasting.html"
 ```
 
-The repository remains private even though the running Demo is public.
+The live application and Portfolio case study are linked in both directions.
+Repository visibility is managed independently from the public application deployment.
 
 ## License
 

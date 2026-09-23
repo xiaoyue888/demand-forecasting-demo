@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import warnings
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import Protocol
 
 import numpy as np
@@ -16,7 +17,7 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 class PanelForecaster(Protocol):
     name: str
 
-    def fit(self, panel: pd.DataFrame) -> "PanelForecaster": ...
+    def fit(self, panel: pd.DataFrame) -> PanelForecaster: ...
 
     def predict(self, horizon: int) -> pd.DataFrame: ...
 
@@ -28,7 +29,7 @@ def _future_rows(history: pd.DataFrame, predictions: dict[str, np.ndarray]) -> p
         for step, value in enumerate(values, start=1):
             rows.append(
                 {
-                    "date": last_date + pd.Timedelta(weeks=step),
+                    "date": last_date + timedelta(weeks=step),
                     "sku_id": sku_id,
                     "horizon_step": step,
                     "forecast": max(0.0, float(value)),
@@ -43,7 +44,7 @@ class SeasonalNaiveForecaster:
     fallback_window: int = 4
     name: str = "seasonal_naive"
 
-    def fit(self, panel: pd.DataFrame) -> "SeasonalNaiveForecaster":
+    def fit(self, panel: pd.DataFrame) -> SeasonalNaiveForecaster:
         self.history = panel.sort_values(["date", "sku_id"]).copy()
         return self
 
@@ -64,7 +65,7 @@ class ETSForecaster:
     season_length: int = 52
     name: str = "ets"
 
-    def fit(self, panel: pd.DataFrame) -> "ETSForecaster":
+    def fit(self, panel: pd.DataFrame) -> ETSForecaster:
         self.history = panel.sort_values(["date", "sku_id"]).copy()
         self.fitted: dict[str, object] = {}
         for sku_id, group in self.history.groupby("sku_id", sort=True):
@@ -132,7 +133,7 @@ class GlobalHGBForecaster:
     random_state: int = 20260915
     name: str = "global_hgb"
 
-    def fit(self, panel: pd.DataFrame) -> "GlobalHGBForecaster":
+    def fit(self, panel: pd.DataFrame) -> GlobalHGBForecaster:
         self.history = panel.sort_values(["date", "sku_id"]).copy()
         rows: list[dict[str, object]] = []
         targets: list[float] = []
@@ -164,7 +165,7 @@ class GlobalHGBForecaster:
         predictions = {sku_id: [] for sku_id in histories}
         last_date = self.history["date"].max()
         for step in range(1, horizon + 1):
-            date = last_date + pd.Timedelta(weeks=step)
+            date = last_date + timedelta(weeks=step)
             raw = pd.DataFrame(
                 [_feature_row(values, date, sku_id) for sku_id, values in histories.items()]
             )
@@ -178,7 +179,7 @@ class GlobalHGBForecaster:
         return _future_rows(self.history, arrays)
 
 
-def model_factories() -> dict[str, type[SeasonalNaiveForecaster] | type[ETSForecaster] | type[GlobalHGBForecaster]]:
+def model_factories() -> dict[str, type[SeasonalNaiveForecaster | ETSForecaster | GlobalHGBForecaster]]:
     return {
         "seasonal_naive": SeasonalNaiveForecaster,
         "ets": ETSForecaster,

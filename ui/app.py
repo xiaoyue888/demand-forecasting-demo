@@ -20,7 +20,6 @@ from demand_forecasting import (
 )
 from demand_forecasting.web import case_study_url
 
-
 MODEL_LABELS = {
     "seasonal_naive": "Seasonal Naive",
     "ets": "ETS",

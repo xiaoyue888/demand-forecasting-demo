@@ -1,6 +1,6 @@
 # Website integration contract
 
-Status: **connected to the local portfolio prototype; public hosting remains unapproved**
+Status: **deployed, connected, and verified**
 
 ## Portfolio metadata
 
@@ -13,25 +13,35 @@ Status: **connected to the local portfolio prototype; public hosting remains una
 - Core flow: Historical sales → Demand forecast → Inventory risk → Replenishment
   recommendation
 
-Do not publish an accuracy-improvement percentage. The frozen test currently shows
-the Seasonal Naive baseline outperforming the more complex candidates.
+Do not publish an accuracy-improvement percentage. The frozen test shows the
+Seasonal Naive baseline outperforming the more complex candidates on aggregate
+WAPE for that specific synthetic test period.
 
 ## Runtime boundary
 
-The Demo is currently a stateful Streamlit application backed by a Python process.
-It is not a static bundle and cannot be copied into the website's existing `dist/`
-directory. Public integration needs a separately approved Python-capable hosting
-decision or a separately scoped browser-side rewrite.
+The Demo is a stateful Streamlit application backed by a Python process. It remains
+separate from the static Portfolio deployment and is linked rather than embedded.
+Uploaded CSV content is processed in memory, limited by the public data contract,
+and never placed in the cross-user Streamlit cache.
 
-The website should link to the approved Demo URL rather than iframe it until the
-chosen host's embedding, cookies, loading, and security behavior are verified.
+The local case-study fallback is
+`http://127.0.0.1:4173/demand-forecasting.html`. The hosted runtime sets
+`DEMO_CASE_STUDY_URL` to the public Portfolio case page.
 
-Set `DEMO_CASE_STUDY_URL` in the Demo runtime to the final website case-page URL.
-The local default is `http://127.0.0.1:4173/demand-forecasting.html`.
+## Public integration
+
+- Live Demo: `https://xiaoyue-demand-forecasting.streamlit.app/`
+- Portfolio case study: `https://xiaoyue-portfolio.pages.dev/demand-forecasting.html`
+- The Portfolio opens the hosted Demo as an external application.
+- The hosted Demo opens the matching Portfolio case page at the top level.
+- Both public endpoints and the two-way navigation have been verified.
+
+The selected Streamlit Community Cloud service may sleep when idle. That hosting
+behavior does not change the model, data, or privacy boundary.
 
 ## Visual handoff
 
-The local application already carries:
+The application carries:
 
 - XZ navigation mark and Back to case study link.
 - Warm off-white `#fafaf7` background.
@@ -42,31 +52,9 @@ The local application already carries:
 
 No raster assets are required. Forecast charts are generated at runtime.
 
-## Local integration completed
+## Publication boundary
 
-- Added the project card and case page using the approved metadata.
-- Linked the case page to the local Demo at `http://127.0.0.1:8767/`.
-- Configured the Demo's default back-link to the local case page.
-
-## Required work before public release
-
-1. Link the case page to the final hosted Demo URL.
-2. Configure the hosted Demo's `DEMO_CASE_STUDY_URL` back-link.
-3. Add a visible loading expectation if the selected Python host sleeps when idle.
-4. Verify desktop/mobile navigation and accessibility in the hosted context.
-5. Review the experiment record before exposing any metric or performance copy.
-
-Do not copy client data, add logos, claim endorsement, or replace the disclosed
-planning assumptions with marketing language.
-
-## Deployment decision still required
-
-Before publication, Xiaoyue must choose and approve one of these scopes:
-
-- Keep Streamlit and select a Python host, accepting process cost and possible
-  sleep/wake latency.
-- Rewrite forecasting for a browser/static architecture, with a separate technical
-  feasibility and model-equivalence review.
-
-No hosting provider, public license, GitHub repository, deployment, or website edit
-is authorized by this document.
+The repository contains only synthetic data and newly written portfolio code.
+Do not add client data, logos, endorsement claims, or unsupported performance
+language. GitHub repository visibility and website source visibility remain
+separate decisions from the already approved public application deployment.

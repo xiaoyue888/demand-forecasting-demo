@@ -5,7 +5,6 @@ from __future__ import annotations
 import os
 from urllib.parse import urlsplit
 
-
 DEFAULT_CASE_STUDY_URL = "http://127.0.0.1:4173/demand-forecasting.html"
 
 
